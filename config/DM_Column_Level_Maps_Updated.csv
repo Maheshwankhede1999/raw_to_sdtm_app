@@ -1,0 +1,23 @@
+Source_Dataset,Source_Variable,Source_Layer,Target_Dataset,Target_Variable,Sequence,Function_Name,New_Function_Name,Function Type,Business_Logic,Technical_Logic,Actual_Logic
+DM,,PRECONF,DM,STUDYID,1,ASSIGN,ASSIGN,OTB,,DELTA_ONCO,add a constant DELTA_ONCO as literal value to respective Target_Variable column 
+DM,,PRECONF,DM,DOMAIN,2,ASSIGN,ASSIGN,OTB,,DM,add a constant DM as literal value to respective Target_Variable column 
+DM,SUBJECT,PRECONF,DM,USUBJID,3,COPY,COPY,OTB,,,
+DM,SUBJECT,PRECONF,DM,SUBJID,4,COPY,COPY,OTB,,,
+IFC,IFCDT_RAW,PRECONF,DM,RFICDTC,5,DATE_CONVERT,DATE_CONVERT,OTB,,{'source_date':'IFCDT_RAW'},copy IFCDT_raw from Source_Dataset to the Target_Variable column
+DM,,PRECONF,DM,ARMCD,6,OMULTIASSIGN,CONDITION,OTB,,"{'conditions':[df['SITENUMBER']>='40',df['SITENUMBER']<'40'],'choices':['5','6']}",get the site number from source file check if site number is greater than equal to 40 then put 5 or if site number is less than 40 then put 6 in the Target_Variable column
+DM,,PRECONF,DM,ARM,7,OMULTIASSIGN,CONDITION,OTB,,"{'conditions':[df['SITENUMBER']>='40',df['SITENUMBER']<'40'],'choices':['Group 1 - Advance BCC / Placebo','Placebo / Group 1 - Adance BCC']}",if site number is greater than or equal to 40 then then put 'Group 1 - Advance BCC / Placebo' or if site number is less than 40 then put 'Placebo / Group 1 - Adance BCC' in the Target_Variable column
+DM,,PRECONF,DM,ACTARMCD,8,ASSIGN,ASSIGN,OTB,,,
+DM,,PRECONF,DM,ACTARM,9,ASSIGN,ASSIGN,OTB,,,
+DM,,PRECONF,DM,RFSTDTC,10,ASSIGN,ASSIGN,OTB,,,
+DM,,PRECONF,DM,RFENDTC,11,ASSIGN,ASSIGN,OTB,,,
+DM,,PRECONF,DM,RFXSTDTC,12,ASSIGN,ASSIGN,OTB,,,
+DM,,PRECONF,DM,RFXENDTC,13,ASSIGN,ASSIGN,OTB,,,
+DOV,DOV,PRECONF,DM,RFPENDTC,14,COPY,COPY,OTB,,{'source_date':'DOV'},copy DOV column value from Source_Dataset to the Target_Variable columns
+DM,,PRECONF,DM,AGE,17,CUSTOM_FUNCTION,CUSTOM_FUNCTION,CUSTOM,,{'function':'CF_AGE'},
+DM,,PRECONF,DM,AGEU,18,OMULTIASSIGN,CONDITION,OTB,,"{'conditions':[df['AGE']!=''],'choices':['Years']}","Check if age is not null which is derived using in runtime as using CF_AGE function, then put literal value as 'Years'  to the Target_Variable column"
+DM,SITENUMBER,PRECONF,DM,SITEID,19,COPY,COPY,OTB,,,
+SUBJ,SUBJBRTHDT_RAW,PRECONF,DM,BRTHDTC,20,DATE_CONVERT,DATE_CONVERT,OTB,,{'source_date':'SUBJBRTHDT_RAW'},copy SUBJBRTHDT_RAW column value from Source_Dataset to the Target_Variable column
+DM,DMSEX,PRECONF,DM,SEX,21,COPY,COPY,OTB,,,
+DM,DMRACE,PRECONF,DM,RACE,22,COPY,COPY,OTB,,,
+DM,DMETHNIC,PRECONF,DM,ETHNIC,23,COPY,COPY,OTB,,,
+DOV,FOLDER,PRECONF,DM,VISIT,24,COPY,COPY,OTB,,,

@@ -1,0 +1,5 @@
+Source Dataset,Source Layer,Sequence,Function,Business Logic,Technical Logic,New_Technical_Logic,Target Dataset
+DM,PDL,1,COPY,,,,DM
+SUBJ,PDL,2,MERGE,,"{'left':['SITE','SUBJECT'],'right':['SITE','SUBJECT'],'merge_type':'left'} ","do left join on the basis of ""SITE"" and ""Subject"" columns from both side if match found do left join ",DM
+DOV,PDL,3,MERGE,,"{'left':['SITE','SUBJECT'],'right':['SITE','SUBJECT'],'merge_type':'left','groupvars':['SITE','SUBJECT'],'asc':False,'sortby':'DOV'} ","perform a left join operation on datasets, group the resulting data by 'SITE' and 'SUBJECT', sort it in descending order based on the 'DOV' attribute.",DM
+IFC,PDL,4,MERGE,,"{'left':['SITE','SUBJECT'],'right':['SITE','SUBJECT'],'merge_type':'left'} ","do left join on the basis of ""SITE"" and ""Subject"" columns from both side if match found do left join ",DM
